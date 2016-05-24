@@ -10,10 +10,13 @@
   },
   "require": {
     "php": ">=5.5.9",
-    "woolf/shophpify": "1.1.*",
+    "woolf/shophpify": "dev-master",
     "illuminate/contracts": "^5.2",
     "illuminate/support": "^5.2"
   },
+  "repositories": [
+      { "type": "vcs", "url": "https://github.com/81552433qqcom/shophpify" }
+  ],
   "require-dev": {
     "phpunit/phpunit": "4.*",
     "mockery/mockery": "^0.9.4"
