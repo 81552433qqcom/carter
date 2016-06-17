@@ -109,6 +109,12 @@ class ShopifyController extends Controller
         return redirect()->route('shopify.dashboard');
     }
 
+    public function logout()
+    {
+       auth()->logout();
+       return redirect()->route('shopify.signup');
+    }
+
     public function dashboard()
     {
         return view('carter::shopify.app.dashboard', ['user' => auth()->user()]);
