@@ -24,6 +24,11 @@ Route::group(['middleware' => 'web'], function ($router) {
     )->name('shopify.activate');
 
     $router->get(
+        config('carter.shopify.routes.logout.uri'),
+        config('carter.shopify.routes.logout.action')
+    )->name('shopify.logout');
+
+    $router->get(
         config('carter.shopify.routes.login.uri'),
         config('carter.shopify.routes.login.action')
     )->name('shopify.login');
