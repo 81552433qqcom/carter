@@ -23,7 +23,19 @@ class RegisterShop
 
     public function execute()
     {
-        return app('carter_user')->create($this->shop($this->getAccessToken()));
+        //check if exists or not, if exists, then escape
+        $accessToken = $this->getAccessToken();
+        //get shop info
+        $shop = $this->shop($accessToken);
+
+        //check
+        if(empty($shop) || empty($shop['id']))
+        {
+            return app('carter_user')->create($shop);
+        }
+        else
+            return $shop['id'];
+       
     }
 
     protected function shop($accessToken)
