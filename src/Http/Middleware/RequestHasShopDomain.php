@@ -13,6 +13,19 @@ class RequestHasShopDomain
             return redirect()->route('shopify.signup');
         }
 
+        //check if login domain is same as request domain or not
+        if(auth()->check())
+        {
+        	$shop = $request->input('shop');
+        	$shop_login =  auth()->user()->domain;
+
+        	if($shop != $shop_login)
+        	{
+        		//logout current login
+        		auth()->logout();	
+        	}
+        }
+
         return $next($request);
     }
 }
