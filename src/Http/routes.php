@@ -13,6 +13,12 @@ Route::group(['middleware' => 'web'], function ($router) {
         config('carter.shopify.routes.install.action')
     )->name('shopify.install');
 
+    $router->match(
+        ['post'],
+        config('carter.shopify.routes.uninstall.uri'),
+        config('carter.shopify.routes.uninstall.action')
+    )->name('shopify.uninstall');
+
     $router->get(
         config('carter.shopify.routes.register.uri'),
         config('carter.shopify.routes.register.action')
