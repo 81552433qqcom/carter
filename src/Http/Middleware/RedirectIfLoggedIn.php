@@ -11,7 +11,8 @@ class RedirectIfLoggedIn
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
-            return redirect()->secure('/dashboard');
+        	$shop = $request->get('shop');
+            return redirect()->route('shopify.dashboard',['shop' => $shop]);
         }
 
         return $next($request);
