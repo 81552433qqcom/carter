@@ -21,6 +21,9 @@ use Woolf\Carter\RegisterShop;
 use Woolf\Shophpify\Endpoint;
 use Woolf\Shophpify\Resource\OAuth;
 use Woolf\Shophpify\Resource\RecurringApplicationCharge;
+use Woolf\Shophpify\Resource\Webhook;
+use Log;
+use URL;
 
 class ShopifyController extends Controller
 {
@@ -74,6 +77,23 @@ class ShopifyController extends Controller
         return redirect($url);
     }
 
+
+    public function uninstall(Request $request)
+    {
+        //get data
+        $data = $request->all();
+        $shop = $data['domain'];
+
+        if(empty($shop) == false)
+        {
+            Log::info('Uninstall data', ['shop' => $shop ]);
+            //remove shop user from db
+            app('carter_user')->whereDomain($shop)->delete();
+        }
+        
+    }
+
+
     public function registerStore()
     {
         return view('carter::shopify.auth.register');
@@ -82,6 +102,9 @@ class ShopifyController extends Controller
     public function register(RegisterShop $registerShop)
     {
         auth()->login($registerShop->execute());
+
+        //create hooks
+        $this->registerHook();
 
         $charge = app(RecurringApplicationCharge::class)->create(config('carter.shopify.plan'));
 
@@ -126,5 +149,20 @@ class ShopifyController extends Controller
     {
         $shop_url = $request->get('shop');
         return view('carter::shopify.app.dashboard', ['user' => auth()->user(),'shop_url' => $shop_url]);
+    }
+
+
+    protected function registerHook()
+    {
+        //register uninstall hook
+        $url = URL::route('shopify.uninstall');
+
+        Log::info($url);
+
+        $webhook = ['topic' => 'app/uninstalled',"address" => $url , 'format' => 'json'];
+
+        Log::info('hook return',['data' => app(Webhook::class)->create($webhook)]);
+        Log::info('hooks all',['all hooks' => app(Webhook::class)->all()]);
+
     }
 }
