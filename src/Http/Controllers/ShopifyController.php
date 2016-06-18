@@ -46,7 +46,7 @@ class ShopifyController extends Controller
         ]);
 
         $this->middleware(RedirectIfLoggedIn::class, [
-            'only' => ['install', 'registerStore', 'register', 'login']
+            'only' => ['install', 'register', 'login']
         ]);
 
         $this->middleware(RedirectToLogin::class, [
@@ -102,11 +102,18 @@ class ShopifyController extends Controller
 
     public function login(Request $request)
     {
-        $user = app('carter_user')->whereDomain($request->get('shop'))->first();
-
-        auth()->login($user);
-
-        return redirect()->route('shopify.dashboard');
+        $shop = $request->get('shop');
+        $user = app('carter_user')->whereDomain($shop)->first();
+        if(empty($user) == false)
+        {
+            auth()->login($user);
+            return redirect()->route('shopify.dashboard',['shop_url' => $shop]);
+        }
+        else
+        {
+            return redirect()->route('shopify.signup',['shop_url' => $shop]);
+        }
+        
     }
 
     public function logout()
@@ -115,8 +122,9 @@ class ShopifyController extends Controller
        return redirect()->route('shopify.signup');
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        return view('carter::shopify.app.dashboard', ['user' => auth()->user()]);
+        $shop_url = $request->get('shop');
+        return view('carter::shopify.app.dashboard', ['user' => auth()->user(),'shop_url' => $shop_url]);
     }
 }
