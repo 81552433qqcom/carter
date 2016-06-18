@@ -13,15 +13,13 @@ return [
         /*
          *  https://docs.shopify.com/api/authentication/oauth#scopes
          */
-        'scopes' => [
+        'scopes'        => [
             'read_content',
             'read_themes',
-            'write_themes',
             'read_products',
             'read_customers',
             'read_orders',
             'read_script_tags',
-            'write_script_tags',
             'read_fulfillments',
             'read_shipping'
         ],
@@ -29,51 +27,54 @@ return [
         /*
          *  https://docs.shopify.com/api/recurringapplicationcharge#create
          */
-        'plan' => [
+        'plan'          => [
             'name'       => 'Test Plan',
             'price'      => 0.99,
             'return_url' => env('APP_URL', 'http://localhost').'/activate',
             'trial_day'  => 0,
             'test'       => true
         ],
-        
+
         'routes' => [
-                'signup' => [
-                    'uri'    => 'signup',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@registerStore'
-                ],
-
-                'install' => [
-                    'uri'    => 'install',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@install'
-                ],
-                
-                'logout' => [
-                    'uri'    => 'logout',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@logout'
-                ],
-
-                'register' => [
-                    'uri'    => 'register',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@register'
-                ],
-
-                'activate' => [
-                    'uri'    => 'activate',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@activate'
-                ],
-
-                'login' => [
-                    'uri'    => 'login',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@login'
-                ],
-
-                'dashboard' => [
-                    'uri'    => 'dashboard',
-                    'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@dashboard'
-                ],
+            'signup' => [
+                'uri'    => 'signup',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@registerStore'
             ],
 
+            'install' => [
+                'uri'    => 'install',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@install'
+            ],
+            'uninstall' => [
+                'uri'    => 'uninstall',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@uninstall'
+            ],
+
+            'logout' => [
+                'uri'    => 'install',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@logout'
+            ],
+
+            'register' => [
+                'uri'    => 'register',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@register'
+            ],
+
+            'activate' => [
+                'uri'    => 'activate',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@activate'
+            ],
+
+            'login' => [
+                'uri'    => 'login',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@login'
+            ],
+
+            'dashboard' => [
+                'uri'    => 'dashboard',
+                'action' => '\Woolf\Carter\Http\Controllers\ShopifyController@dashboard'
+            ],
+        ]
 
     ]
 
