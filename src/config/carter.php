@@ -35,6 +35,17 @@ return [
             'test'       => true
         ],
 
+        'hooks_register' => [
+
+            "shopify.uninstall" => ['topic' => 'app/uninstalled','format' => 'json'],
+
+        ],
+
+        //execute after app uninstall, say remove code inserted in templates, empty snippets etc.
+        'app_uninstall' => [
+            ['class' => '','method' => '']
+        ],
+
         'routes' => [
             'signup' => [
                 'uri'    => 'signup',
