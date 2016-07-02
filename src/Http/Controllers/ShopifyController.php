@@ -100,9 +100,26 @@ class ShopifyController extends Controller
     }
 
 
-    public function registerStore()
+    public function registerStore(Request $request)
     {
-        return view('carter::shopify.auth.register');
+        $shop = $request->get('shop_url');
+        if(empty($shop))
+        {
+            $shop = $request->get('shop');
+        }
+
+        if(empty($shop))
+        {
+            return view('carter::shopify.auth.register');
+        }
+        else
+        {
+            //install
+            return redirect()->route('shopify.install',['shop' => $shop]);
+        }
+
+
+        
     }
 
     public function register(RegisterShop $registerShop)
