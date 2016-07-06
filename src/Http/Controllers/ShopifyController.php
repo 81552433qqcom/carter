@@ -170,7 +170,12 @@ class ShopifyController extends Controller
 
     public function dashboard(Request $request)
     {
-        $shop_url = $request->get('shop');
+        $shop_url = $request->get('shop_url');
+        if(empty($shop_url))
+        {
+            $shop_url = $request->get('shop');
+        }
+        
         return view('carter::shopify.app.dashboard', ['user' => auth()->user(),'shop_url' => $shop_url]);
     }
 
