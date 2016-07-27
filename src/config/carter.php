@@ -24,6 +24,8 @@ return [
             'read_shipping'
         ],
 
+        'free_shops' => [],
+
         /*
          *  https://docs.shopify.com/api/recurringapplicationcharge#create
          */
