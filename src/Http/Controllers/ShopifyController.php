@@ -117,8 +117,6 @@ class ShopifyController extends Controller
             //install
             return redirect()->route('shopify.install',['shop' => $shop]);
         }
-
-
         
     }
 
@@ -143,7 +141,7 @@ class ShopifyController extends Controller
             auth()->user()->update(['charge_id' => $id]);
         }
 
-        return redirect($endpoint->build('admin/apps'));
+        return redirect()->route('shopify.dashboard',['shop_url' => auth()->user()->domain]);
     }
 
     public function login(Request $request)
