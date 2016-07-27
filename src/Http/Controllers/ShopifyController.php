@@ -128,13 +128,13 @@ class ShopifyController extends Controller
         $this->registerHook();
 
         $plan_config = config('carter.shopify.plan');
-        //$shop = auth()->user()->domain;
+        $shop = auth()->user()->domain;
 
         //if shop is in free shops, then mark as test and free
-        //if(in_array($shop,config('carter.shopify.free_shops')))
-        //{
-         //   $plan_config['test'] = true;
-        //}
+        if(in_array($shop,config('carter.shopify.free_shops')))
+        {
+            $plan_config['test'] = true;
+        }
 
         $charge = app(RecurringApplicationCharge::class)->create($plan_config);
 
