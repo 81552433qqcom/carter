@@ -127,7 +127,16 @@ class ShopifyController extends Controller
         //create hooks
         $this->registerHook();
 
-        $charge = app(RecurringApplicationCharge::class)->create(config('carter.shopify.plan'));
+        $plan_config = config('carter.shopify.plan');
+        $shop = auth()->user()->domain;
+
+        //if shop is in free shops, then mark as test and free
+        if(in_array($shop,config('carter.shopify.free_shops')))
+        {
+            $plan_config['test'] = true;
+        }
+
+        $charge = app(RecurringApplicationCharge::class)->create($plan_config);
 
         return redirect($charge['confirmation_url']);
     }
