@@ -40,13 +40,13 @@ class RegisterShop
 
     protected function shop($accessToken)
     {
-        $shop = app(Shop::class, ['client' => new Client($accessToken)])->get(['id', 'name', 'email', 'domain']);
+        $shop = app(Shop::class, ['client' => new Client($accessToken)])->get(['id', 'name', 'email', 'myshopify_domain']);
 
         return [
             'shopify_id'   => $shop['id'],
             'name'         => $shop['name'],
             'email'        => $shop['email'],
-            'domain'       => $shop['domain'],
+            'domain'       => $shop['myshopify_domain'],
             'access_token' => $accessToken,
             'password'     => bcrypt(Str::random(20))
         ];
