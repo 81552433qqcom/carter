@@ -83,7 +83,7 @@ class ShopifyController extends Controller
     {
         //get data
         $data = $request->all();
-        $shop = $data['domain'];
+        $shop = $data['myshopify_domain'];
 
         if(empty($shop) == false)
         {
